@@ -1,6 +1,7 @@
 # Introduccion
 
     Estoy creando un proyecto de django para crear una api
+    para guardar informacion local 
 
 ------
 
@@ -38,22 +39,52 @@
 
     python3 manage.py runserver 
 
+## Acceder al panel de administración
+```
+python3 manage.py createsuperuser
+```
+
+    Acceder al url: http://localhost:8000/admin
+
+    
 - MODELS
 
-        Creamos la primera tabla llamada Data mediante una clase
+    Creamos la primera tabla llamada Data mediante una clase
 
 
 
 - VIEWSETS
 
-### Paso 1, creamos el archivo viewsets.py en la carpeta data
-    
-    
+### Paso 1, Creamos el archivo viewsets.py en la carpeta data
 
+    Importamos UserDaraSerialazer
+
+### Paso 2, Cramos una funcion
+
+    En esta funcion se ara una consulta a la base de datos
+    
+    
 - URLS
+
+### Paso 1
+
+    Importamo Routers de rest_framework y UserDataViewSets
+
+### Paso 2
+
+    Despues realizamos el Url con UserDataViewSets
+
 
 ---
 
 - SERIALIZERS
 
+### Paso 1
+
+    Creamos El serializer y la Clase meta 
+
 ---
+## Instalación
+
+```
+pip3 install -r requirements.txt

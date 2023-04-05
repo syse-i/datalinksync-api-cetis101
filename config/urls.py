@@ -17,14 +17,15 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers, urls
 from apps.data.viewsets import DataViewSet
-
+#Configuracion del url
 router = routers.DefaultRouter()
 router.register('CetisAlumnos', DataViewSet,'CetisAlumno')
 
+#Aqui añadimos los urls
 urlpatterns = [
 
-    path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls')),
-    path('v1/', include(router.urls))
+    path('admin/', admin.site.urls),#Panel de Administracion de django por defecto
+    path('api-auth/', include('rest_framework.urls')),#Interfaz rest_framework
+    path('v1/', include(router.urls))#Get y Post y Filtros de data
 ]
 

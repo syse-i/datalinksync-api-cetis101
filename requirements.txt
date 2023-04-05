@@ -1,1 +1,9 @@
 djangorestframework
+django-filter
+django-extensions
+django-cors-headers
+django-cors-headers
+requests
+coverage
+pika
+Faker
