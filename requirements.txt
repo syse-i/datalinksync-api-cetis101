@@ -3,7 +3,12 @@ django-filter
 django-extensions
 django-cors-headers
 django-cors-headers
+pytest-rabbitmq
 requests
 coverage
 pika
 Faker
+psycopg2-binary
+docutils
+pyyaml 
+uritemplate

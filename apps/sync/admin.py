@@ -4,8 +4,13 @@ from .models import SyncContent
 
 # Register your models here.
 
+
 @admin.register(SyncContent)
 class SyncContentAdmin(admin.ModelAdmin):
+    """
+    Añadimos el modelo SyncContet a panel de adminnistracion
+     y integramos el Fitro search
+    """
     list_display = [
         'user',
         'content_type',

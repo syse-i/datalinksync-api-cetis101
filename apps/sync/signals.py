@@ -1,11 +1,17 @@
 import json
 from django.db import models
+from django.conf import settings
 
 import pika
 
 
-def update_data_signal(queue_name, callback):#Esta funcion se conecta con RabbitMQ
-    connection = pika.BlockingConnection(pika.ConnectionParameters('0.0.0.0'))#Paramtro de la coneccion
+def update_data_signal(queue_name, callback):
+    """
+    Esta funcion la señal de post espera la señal para conectarse con RabbitMQ
+    para que callback reciba los para metros de la cola, cuando
+    termine la cola al final cierra la conexion 
+    """
+    connection = pika.BlockingConnection(pika.ConnectionParameters(settings.RABBITMQ_HOST))#Paramtro de la coneccion
     channel = connection.channel()#Abre la conexion
     channel.queue_declare(queue=queue_name, durable=True)#Se declara el nombre de la cola
 

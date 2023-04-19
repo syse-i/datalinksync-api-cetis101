@@ -1,7 +1,7 @@
 # Introduccion
 
     Estoy creando un proyecto de django para crear una api
-    para guardar informacion local 
+    para guardar informacion local en una aplicacion 
 
 ------
 
@@ -9,35 +9,47 @@
 
 ## Instala Django
 
+```
     pip3 install Django==4.2
+```
 
 ## Crear base del proyecto
 
+```
     django-admin startproject AquiVaElNombreDelProyecto
+```
 
 # Instalacion (django-rest-framework)
 
+```
    pip3 install djangorestframework
-
+```
 ------
 
 # Como crear una app
 
+```
     python3 manage.py startapp AquiVaElNombreDeLaApp
-
+```
 # Como hacer una API
 
 ## Paso 1, Generar la primera migracion
 
+```
     python3 manage.py migrate
+```
 
 ## Paso 2, Crear Un superUsuario
 
+```
     python3 manage.py createsuperuser
+```
 
 ## Paso 3, Correr el proyecto
 
+```
     python3 manage.py runserver 
+```
 
 ## Acceder al panel de administración
 ```
@@ -74,17 +86,23 @@ python3 manage.py createsuperuser
 
     Despues realizamos el Url con UserDataViewSets
 
-
 ---
 
 - SERIALIZERS
 
 ### Paso 1
 
-    Creamos El serializer y la Clase meta 
+Creamos El serializer y la Clase meta 
 
----
+
 ## Instalación
 
 ```
 pip3 install -r requirements.txt
+```
+
+## Correr el servidor con docker
+
+```
+docker compose up -d
+```

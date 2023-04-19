@@ -11,6 +11,9 @@ User = get_user_model()#mandamos a llamar el modelo User
 
 
 class Command(WorkerCommand):#Mandamos a llamar la clase WorkerCommand estable la conexion con RabbitMQ
+    """
+    recibe los puertos y manda las colas a rabbitmq
+    """
     help = ''
     queue_name = 'update_sync_content'
 
