@@ -1,11 +1,21 @@
+# Python libs
+
+# Django libs
+
+
+# Third party libs
 from rest_framework import viewsets, mixins
 from rest_framework.response import Response
 from rest_framework.exceptions import NotAcceptable
+from rest_framework import status
+from rest_framework.decorators import action
+
+# Local libs
 from .models import Data
 from .serializers import DataSerializer
-from rest_framework.decorators import action
+
+# Internal local libs
 from apps.sync.models import SyncContent
-from rest_framework import status
 
 
 class DataViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
@@ -60,7 +70,7 @@ class DataViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.Retriev
             raise NotAcceptable("El usuario no tiene permisos")
         return super().list(request, *args, **kwargs)
 
-    def perform_create(self, serializer):
+    def create(self, request, *args, **kwargs):
         """
         Permisos de usuario
         -------------------
@@ -68,6 +78,7 @@ class DataViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.Retriev
         """
         if not self.request.user.has_perm("data.add_data"):
             raise NotAcceptable("El usuario no tiene permisos")
+        return super().create(request, *args, **kwargs)
 
     @action(methods=["PATCH"], detail=False)
     def mark_as_read(self, request, *args, **kwargs):
@@ -78,10 +89,12 @@ class DataViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.Retriev
         queryset = self.filter_queryset(self.get_queryset())
 
         page = self.paginate_queryset(queryset)
+        
         if page is not None:
             SyncContent.objects.filter(id__in=[data["id"] for data in page]).update(is_synced=True)
         else:
             SyncContent.objects.filter(id__in=[data.id for data in queryset]).update(is_synced=True)
+
         return Response(status=status.HTTP_202_ACCEPTED)
 
     

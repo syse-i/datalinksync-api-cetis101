@@ -173,3 +173,5 @@ REST_FRAMEWORK = {
 
 
 RABBITMQ_HOST = os.environ.get('RABBITMQ_HOST')
+
+RABBIT_CHANNEL = os.environ.get('RABBIT_CHANNEL', 'update_sync_content')

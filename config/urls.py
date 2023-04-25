@@ -22,7 +22,7 @@ from rest_framework.schemas import get_schema_view
 
 #Configuracion del url
 router = routers.DefaultRouter()
-router.register('CetisAlumnos', DataViewSet,'CetisAlumno')
+router.register('CetisAlumnos', DataViewSet, basename='CetisAlumno')
 
 #Aqui añadimos los urls
 urlpatterns = [

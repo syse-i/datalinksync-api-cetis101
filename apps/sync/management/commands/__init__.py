@@ -3,6 +3,8 @@ import json
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
 
+from ...helpers import worker_handler
+
 # def callback(ch, method, properties, body):
 #     try:
 #         data = json.loads(body)
@@ -29,15 +31,5 @@ class WorkerCommand(BaseCommand):
         """
         genera las colas cuando termina se cierra las colas  
         """
-        try:#Atrapa Errores
-            connection = pika.BlockingConnection(pika.ConnectionParameters(settings.RABBITMQ_HOST, heartbeat=600, blocked_connection_timeout=300))
-            channel = connection.channel()
-            channel.queue_declare(queue=self.queue_name, durable=True)
-            channel.basic_consume(queue=self.queue_name, on_message_callback=self.callback)
-            print(' [*] Waiting for messages. To exit press CTRL+C')
-            channel.start_consuming()
-            self.stdout.write(self.style.SUCCESS('Successfully closed poll'))
-            channel.close()
-        except KeyboardInterrupt:#Si se interupe el proseso salta el error
-            pass
-        #finally:#Si se finaliza el proseso cierra la conexion con RabbitMQ
+        worker_handler(self.queue_name, self.callback)
+        self.stdout.write(self.style.SUCCESS('RabbitMQ worker connection closed'))

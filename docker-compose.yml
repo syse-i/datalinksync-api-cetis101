@@ -20,7 +20,7 @@ services:
       - "15672:15672"
     healthcheck:
         test: ["CMD", "curl", "-f", "http://localhost:15672"]
-        interval: 30s
+        interval: 20s
         timeout: 10s
         retries: 5
   mailcatcher:
@@ -64,6 +64,7 @@ services:
     # profiles:
     #   - donotstart
     build: .
+    restart: on-failure
     command: python manage.py sync_worker
     volumes:
       - .:/code
