@@ -2,8 +2,15 @@ from django.contrib import admin
 
 from .models import SyncContent
 
-# Register your models here.
 
+@admin.action(description="Marcar como sincronizado(false)")
+def make_sync_false(modeladmin, request, queryset):
+    queryset.update(is_synced=False)
+
+
+@admin.action(description="Marcar como sincronizado(true)")
+def make_sync_true(modeladmin, request, queryset):
+    queryset.update(is_synced=True)
 
 @admin.register(SyncContent)
 class SyncContentAdmin(admin.ModelAdmin):
@@ -20,3 +27,4 @@ class SyncContentAdmin(admin.ModelAdmin):
         'modified'
     ]
     search_fields = ["user__email", "user__username"]
+    actions = [make_sync_false, make_sync_true]
