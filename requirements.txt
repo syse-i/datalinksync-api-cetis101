@@ -4,6 +4,8 @@ django-filter
 django-extensions
 django-cors-headers
 django-cors-headers
+dj-rest-auth
+django-allauth
 pytest-rabbitmq
 requests
 coverage

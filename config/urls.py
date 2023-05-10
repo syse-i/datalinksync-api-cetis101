@@ -19,16 +19,21 @@ from rest_framework import routers, urls
 from apps.data.viewsets import DataViewSet
 from django.views.generic import TemplateView
 from rest_framework.schemas import get_schema_view
-
+from rest_framework import urls
 #Configuracion del url
 router = routers.DefaultRouter()
 router.register('CetisAlumnos', DataViewSet, basename='CetisAlumno')
 
+
 #Aqui añadimos los urls
 urlpatterns = [
+    path('', include('django.contrib.auth.urls')),
     path('admin/doc/', include('django.contrib.admindocs.urls')),
     path('admin/', admin.site.urls),#Panel de Administracion de django por defecto
-    path('api-auth/', include('rest_framework.urls')),#Interfaz rest_framework
+    # path('api-auth/', include('rest_framework.urls')),#Interfaz rest_framework
+    path('accounts/', include('allauth.urls')),
+    path('api-auth/', include('dj_rest_auth.urls')),
+    path('api-auth/registration/', include('dj_rest_auth.registration.urls')),
     path('v1/', include(router.urls)),#Get y Post y Filtros de data
     path('openapi', get_schema_view(
         title="Cetis 101",
