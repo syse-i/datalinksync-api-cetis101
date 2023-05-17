@@ -201,3 +201,9 @@ if DEBUG:
     EMAIL_HOST_PASSWORD = ''
     EMAIL_PORT = 1025
     EMAIL_USE_TLS = False
+
+
+# https://dj-rest-auth.readthedocs.io/en/latest/configuration.html
+REST_AUTH = {
+    "SESSION_LOGIN": False
+}
