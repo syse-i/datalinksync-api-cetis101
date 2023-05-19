@@ -19,6 +19,7 @@ class SyncContentAdmin(admin.ModelAdmin):
      y integramos el Fitro search
     """
     list_display = [
+        'id',
         'user',
         'content_type',
         'object_id',

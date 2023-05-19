@@ -30,7 +30,7 @@ class DataViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.Retriev
     Parametros
     ----------
     name : str 
-    
+
     el nombre debe tener como minimo 3 caracteres 
     ademas de que no puede contener caracteres 
     especiales como (/%&$_#-)
@@ -50,7 +50,7 @@ class DataViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.Retriev
         return Data.objects.filter(
             sync__user=self.request.user,
             sync__is_synced=False
-        ).distinct()
+        ).order_by('-modified').distinct()
 
     def list(self, request, *args, **kwargs):
         """
@@ -87,14 +87,15 @@ class DataViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.Retriev
         y no actualize todo de nuevo  
         """
         queryset = self.filter_queryset(self.get_queryset())
-
-        page = self.paginate_queryset(queryset)
         
-        if page is not None:
-            SyncContent.objects.filter(id__in=[data["id"] for data in page]).update(is_synced=True)
-        else:
-            SyncContent.objects.filter(id__in=[data.id for data in queryset]).update(is_synced=True)
+        page = self.paginate_queryset(queryset)
+
+        # SyncContent.objects.filter(id__in=[data.id for data in queryset]).update(is_synced=True)
+        SyncContent.objects.filter(
+            object_id__in=[data.id for data in queryset]).update(is_synced=True)
+
+        # if page is not None:
+        #     SyncContent.objects.filter(id__in=[data["id"] for data in page]).update(is_synced=True)
+        # else:
 
         return Response(status=status.HTTP_202_ACCEPTED)
-
-    

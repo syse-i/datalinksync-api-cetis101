@@ -14,5 +14,9 @@ class DataAdmin(admin.ModelAdmin):
     list_display = [
         'id',
         'name',
+        'created',
+        'modified',
     ]
+
+    search_fields = ('name',)
 
