@@ -45,6 +45,8 @@ class Data(TimeStampedModel):  # Tabla Data
         editable=False
     )
     name = models.CharField(max_length=256)
+    last_name = models.CharField(max_length=256)
+    number_phone = models.CharField(max_length=10)
     sync = GenericRelation(SyncContent)
 
     def __str__(self):

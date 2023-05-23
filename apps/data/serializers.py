@@ -30,7 +30,7 @@ class DataSerializer(serializers.ModelSerializer):
     Aui validamos los campos de data mandando a llamar las funciones
     """
 
-    def validate_name(self, value):
+    def validate_first_name(self, value):
         """
         manda el parametro name a la funciones
         validate_word_minimum y validate_special_characters
@@ -45,4 +45,6 @@ class DataSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'name',
+            'last_name',
+            'number_phone'
         ]

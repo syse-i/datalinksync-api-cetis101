@@ -86,13 +86,14 @@ class DataViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.Retriev
         Actualiza que la informacion ya a sido sincronizada 
         y no actualize todo de nuevo  
         """
-        queryset = self.filter_queryset(self.get_queryset())
-        
+        queryset = self.filter_queryset(self.get_queryset())        
         page = self.paginate_queryset(queryset)
+
+        print(page)
 
         # SyncContent.objects.filter(id__in=[data.id for data in queryset]).update(is_synced=True)
         SyncContent.objects.filter(
-            object_id__in=[data.id for data in queryset]).update(is_synced=True)
+            object_id__in=[data.id for data in page]).update(is_synced=True)
 
         # if page is not None:
         #     SyncContent.objects.filter(id__in=[data["id"] for data in page]).update(is_synced=True)

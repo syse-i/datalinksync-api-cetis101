@@ -14,6 +14,8 @@ class DataAdmin(admin.ModelAdmin):
     list_display = [
         'id',
         'name',
+        'last_name',
+        'number_phone',
         'created',
         'modified',
     ]
